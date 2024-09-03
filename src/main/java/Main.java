@@ -15,26 +15,20 @@ public class Main  {
 
         int op = 0;
         int op2 = 0;
-        LinkedList<String> articles = new LinkedList<String>();
-        Scanner sc = new Scanner(System.in);
-        main.java.Content contentList = new main.java.Content();
 
+        Scanner sc = new Scanner(System.in);
+        
         String table_content = "table_content";
         //db.createContentTable(conn, "Table_Content");
         String table_user = "Table_Users";
         //db.createUsersTable(conn, table_user);
 
-        DB.delete_table(connection, table_content);
-
         DB.createUsersTable(connection, table_user);
 
         DB.createContentTable(connection, table_content);
 
-
-
-
         try {
-            while (op != 3) {
+            while (op != 4) {
                 System.out.println("=======================");
                 System.out.println("1 - Login.");
                 System.out.println("2 - Cadastrar usuario.");
@@ -114,6 +108,8 @@ public class Main  {
 
                                                     DB.update(connection, table_content, "titulo", oldContent, newContent);
                                                     break;
+                                                default:
+                                                    System.out.println("Opção inválida. Tente novamente.");
                                             }
                                     case 4:
                                             System.out.println("Digite o título do conteudo a ser deletado: ");
@@ -124,6 +120,8 @@ public class Main  {
                                     case 5:
                                         System.out.println("Saindo da sua conta. Até logo!");
                                         break;
+                                    default:
+                                        System.out.println("Opção inválida. Tente novamente.");
                                 }
                             }
                         } else {
@@ -134,14 +132,13 @@ public class Main  {
                         DB.insertIntoUsers(connection, table_user,"admin","admin" );
                         System.out.println("Usario admin criado!");
                     case 3:
-                        contentList.listContent(articles);
+                        DB.read(connection, table_content);
                         break;
                     case 4:
                         System.out.println("Saindo do sistema. Até logo!");
                         break;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
-
                 }
 
             }

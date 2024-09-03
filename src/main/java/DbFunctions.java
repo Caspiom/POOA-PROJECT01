@@ -167,7 +167,7 @@ public class DbFunctions {
             String query= String.format("DROP TABLE %s CASCADE",table_name);
             statement = conn.createStatement();
             statement.executeUpdate(query);
-            System.out.println("Tabela deletada com sucesso! LA ELE!!!");
+            System.out.println("Tabela deletada com sucesso!");
             System.out.println("-----------------------------");
         }catch(Exception e){
             System.out.println(e);
