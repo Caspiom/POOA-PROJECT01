@@ -7,37 +7,41 @@ import java.sql.Connection;
 public class Main  {
     public static void main(String[] args) {
 
-        //CRIAÇÃO DO OBEJETO DB
+        // Criação do objeto DB e sc
+        // Creation of the DB and sc object
         main.java.DbFunctions DB=new main.java.DbFunctions();
+        Scanner sc = new Scanner(System.in);
+        main.java.Content content =new main.java.Content();
+        main.java.Users users=new main.java.Users();
 
-        //CONECTANDO A O BANCO POSTGRES
+        // Conectando ao banco Postgres
+        // Connecting to the Postgres database
         Connection connection = DB.connect_to_db("", "postgres", "postgres" );
 
+        // Criação de variáveis de controle
+        // Creation of control variables
         int op = 0;
         int op2 = 0;
 
-        Scanner sc = new Scanner(System.in);
-        
+        // Dá nome às variáveis responsáveis por gerenciar as tabelas do banco de dados
+        // Names the variables responsible for managing the database tables
         String table_content = "table_content";
-        //db.createContentTable(conn, "Table_Content");
         String table_user = "Table_Users";
-        //db.createUsersTable(conn, table_user);
 
-        DB.createUsersTable(connection, table_user);
-
-        DB.createContentTable(connection, table_content);
+        //Cria(se ja não existir) os bancos as tabelas
+        users.createTable(connection, table_user);
+        content.createTable(connection, table_content);
 
         try {
             while (op != 4) {
+                // Menu inicial
+                // First menu
                 System.out.println("=======================");
                 System.out.println("1 - Login.");
                 System.out.println("2 - Cadastrar usuario.");
                 System.out.println("3 - Listar os conteúdos.");
                 System.out.println("4 - Sair do sistema.");
                 System.out.println("=======================");
-
-
-
                 try {
                     op = sc.nextInt();
                 } catch (Exception e) {
@@ -45,21 +49,24 @@ public class Main  {
                     continue;
                 }
 
-
                 switch (op) {
                     case 1:
-
+                        // Login e Senha
+                        // Login and Pass
                         System.out.println("Digite seu Login: ");
                         String login = sc.next(); //next() para ler a entrada
 
                         System.out.println("Digite sua Senha: ");
                         String senha = sc.next();
 
-
+                        //Por enquanto Login e senha se mantem admin
+                        //For now Login and pass are both admin
                         if (login.equals("admin") && senha.equals("admin")) {
                             System.out.println("Succeso no Login.");
                             op2=0;
 
+                            //Segundo menu
+                            //Second menu
                             while (op2 != 5) {
                                 System.out.println("=======================");
                                 System.out.println("1 - Cria novo conteúdo.");
@@ -78,11 +85,11 @@ public class Main  {
 
                                         System.out.println("Digite o texto a ser adicionado no banco de dados: ");
                                         String texto = sc.nextLine();
-                                        DB.insertIntoContent(connection, table_content, texto, titulo, login);
-                                        break;
+                                        content.insertInto(connection, table_content, texto, titulo, login);
+                                        continue;
                                     case 2:
                                         DB.read(connection, table_content);
-                                        break;
+                                        continue;
                                     case 3:
                                             System.out.println("=======================");
                                             System.out.println("1 - Mudar título");
@@ -92,31 +99,35 @@ public class Main  {
                                             switch (opTiCon){
                                                 case 1:
                                                     System.out.println("Digite o título a ser modificado: ");
-                                                    String oldTitle = sc.next();
+                                                    if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
+                                                    String oldTitle = sc.nextLine();
 
                                                     System.out.println("Digite o novo título: ");
-                                                    String newTitle = sc.next();
+                                                    String newTitle = sc.nextLine();
 
                                                     DB.update(connection, table_content, "titulo", oldTitle, newTitle);
-                                                    break;
+                                                    continue;
                                                 case 2:
                                                     System.out.println("Digite o conteudo a ser modificado: ");
-                                                    String oldContent = sc.next();
+                                                    if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
+                                                    String oldContent = sc.nextLine();
 
                                                     System.out.println("Digite o novo conteudo: ");
-                                                    String newContent = sc.next();
+                                                    String newContent = sc.nextLine();
 
                                                     DB.update(connection, table_content, "titulo", oldContent, newContent);
-                                                    break;
+                                                    continue;
                                                 default:
                                                     System.out.println("Opção inválida. Tente novamente.");
+                                                    break;
                                             }
                                     case 4:
                                             System.out.println("Digite o título do conteudo a ser deletado: ");
-                                            String delContent = sc.next();
+                                            if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
+                                            String delContent = sc.nextLine();
 
                                             DB.delete_row(connection, table_content, "titulo", delContent);
-                                        break;
+                                        continue;
                                     case 5:
                                         System.out.println("Saindo da sua conta. Até logo!");
                                         break;
@@ -129,11 +140,12 @@ public class Main  {
                         }
                         break;
                     case 2:
-                        DB.insertIntoUsers(connection, table_user,"admin","admin" );
+                        users.insertInto(connection, table_user,"admin","admin" );
                         System.out.println("Usario admin criado!");
+                        continue;
                     case 3:
                         DB.read(connection, table_content);
-                        break;
+                        continue;
                     case 4:
                         System.out.println("Saindo do sistema. Até logo!");
                         break;

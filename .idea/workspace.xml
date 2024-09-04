@@ -9,11 +9,14 @@
       <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Users.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/POOA-CMS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/POOA-CMS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Content.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DbFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DbFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pom.xml" beforeDir="false" />
@@ -167,7 +170,8 @@
       <workItem from="1725372555458" duration="878000" />
       <workItem from="1725373478200" duration="1660000" />
       <workItem from="1725376045815" duration="2251000" />
-      <workItem from="1725386135737" duration="1911000" />
+      <workItem from="1725386135737" duration="4696000" />
+      <workItem from="1725492133207" duration="1288000" />
     </task>
     <servers />
   </component>

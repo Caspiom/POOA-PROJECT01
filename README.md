@@ -30,47 +30,6 @@ Conecta ao banco de dados PostgreSQL.
 
 **Retorna:** Objeto `Connection` se a conexão for bem-sucedida, `null` caso contrário.
 
-## createUsersTable(Connection conn, String table_name)
-Cria a tabela de usuários se ela não existir.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser criada.
-
-**Retorna:** Nada.
-
-## createContentTable(Connection conn, String table_name)
-Cria uma tabela de conteúdo se ela não existir.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser criada.
-
-**Retorna:** Nada.
-
-## insertIntoUsers(Connection conn, String table_name, String username, String password)
-Insere um novo usuário na tabela de usuários.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão inseridos.
-- `username`: Nome de usuário a ser inserido.
-- `password`: Senha a ser inserida.
-
-**Retorna:** Nada.
-
-## insertIntoContent(Connection conn, String table_name, String texto, String titulo, String autor)
-Insere conteúdo na tabela de conteúdo.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão inseridos.
-- `texto`: Texto a ser inserido.
-- `titulo`: Título a ser inserido.
-- `autor`: Autor a ser inserido.
-
-**Retorna:** Nada.
-
 ## read(Connection conn, String table_name)
 Lê a tabela de conteúdo (se necessário, podemos criar uma para ver a de usuário).
 
@@ -123,6 +82,50 @@ Deleta uma tabela inteira (cuidado).
 
 **Retorna:** Nada.
 
+# Métodos da classe Users
+
+## createTable(Connection conn, String table_name)
+Cria a tabela de usuários se ela não existir.
+
+**Parâmetros:**
+- `conn`: Objeto `Connection` para o banco de dados.
+- `table_name`: Nome da tabela a ser criada.
+
+**Retorna:** Nada.
+
+## insertIntoUsers(Connection conn, String table_name, String username, String password)
+Insere um novo usuário na tabela de usuários.
+
+**Parâmetros:**
+- `conn`: Objeto `Connection` para o banco de dados.
+- `table_name`: Nome da tabela onde os dados serão inseridos.
+- `username`: Nome de usuário a ser inserido.
+- `password`: Senha a ser inserida.
+
+**Retorna:** Nada.
+
+# Métodos da classe Content
+
+## createTable(Connection conn, String table_name)
+Cria uma tabela de conteúdo se ela não existir.
+
+**Parâmetros:**
+- `conn`: Objeto `Connection` para o banco de dados.
+- `table_name`: Nome da tabela a ser criada.
+
+**Retorna:** Nada.
+
+## insertInto(Connection conn, String table_name, String texto, String titulo, String autor)
+Insere conteúdo na tabela de conteúdo.
+
+**Parâmetros:**
+- `conn`: Objeto `Connection` para o banco de dados.
+- `table_name`: Nome da tabela onde os dados serão inseridos.
+- `texto`: Texto a ser inserido.
+- `titulo`: Título a ser inserido.
+- `autor`: Autor a ser inserido.
+
+**Retorna:** Nada.
 
 # EN:
 
@@ -144,7 +147,7 @@ This is a small Java program that implements an article management system. It al
 4. **Delete content**: Removes an article from the list.
 5. **Log out**: Ends the user's session.
 
-# Methods of the DbFunctions class
+# Methods of the DbFunctions Class
 
 ## connect_to_db(String dbname, String user, String pass)
 Connects to the PostgreSQL database.
@@ -156,49 +159,8 @@ Connects to the PostgreSQL database.
 
 **Returns:** `Connection` object if the connection is successful, `null` otherwise.
 
-## createUsersTable(Connection conn, String table_name)
-Creates the users table if it does not exist.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be created.
-
-**Returns:** Nothing.
-
-## createContentTable(Connection conn, String table_name)
-Creates a content table if it does not exist.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be created.
-
-**Returns:** Nothing.
-
-## insertIntoUsers(Connection conn, String table_name, String username, String password)
-Inserts a new user into the users table.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be inserted.
-- `username`: Username to be inserted.
-- `password`: Password to be inserted.
-
-**Returns:** Nothing.
-
-## insertIntoContent(Connection conn, String table_name, String texto, String titulo, String autor)
-Inserts content into the content table.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be inserted.
-- `texto`: Text to be inserted.
-- `titulo`: Title to be inserted.
-- `autor`: Author to be inserted.
-
-**Returns:** Nothing.
-
 ## read(Connection conn, String table_name)
-Reads the content table (if necessary, we can create one to see the user table).
+Reads the content table (if necessary, we can create one to view the user table).
 
 **Parameters:**
 - `conn`: `Connection` object for the database.
@@ -207,7 +169,7 @@ Reads the content table (if necessary, we can create one to see the user table).
 **Returns:** Nothing.
 
 ## update(Connection conn, String table_name, String Column, String old_name, String new_name)
-Updates a content in the table based on the name.
+Updates content in the table based on the name.
 
 **Parameters:**
 - `conn`: `Connection` object for the database.
@@ -241,10 +203,55 @@ Deletes a row within a table.
 **Returns:** Nothing.
 
 ## delete_table(Connection conn, String table_name)
-Deletes an entire table (caution).
+Deletes an entire table (use with caution).
 
 **Parameters:**
 - `conn`: `Connection` object for the database.
 - `table_name`: Name of the table to be deleted.
+
+**Returns:** Nothing.
+
+# Methods of the Users Class
+
+## createTable(Connection conn, String table_name)
+Creates the user table if it does not exist.
+
+**Parameters:**
+- `conn`: `Connection` object for the database.
+- `table_name`: Name of the table to be created.
+
+**Returns:** Nothing.
+
+## insertIntoUsers(Connection conn, String table_name, String username, String password)
+Inserts a new user into the user table.
+
+**Parameters:**
+- `conn`: `Connection` object for the database.
+- `table_name`: Name of the table where the data will be inserted.
+- `username`: Username to be inserted.
+- `password`: Password to be inserted.
+
+**Returns:** Nothing.
+
+# Methods of the Content Class
+
+## createTable(Connection conn, String table_name)
+Creates a content table if it does not exist.
+
+**Parameters:**
+- `conn`: `Connection` object for the database.
+- `table_name`: Name of the table to be created.
+
+**Returns:** Nothing.
+
+## insertInto(Connection conn, String table_name, String text, String title, String author)
+Inserts content into the content table.
+
+**Parameters:**
+- `conn`: `Connection` object for the database.
+- `table_name`: Name of the table where the data will be inserted.
+- `text`: Text to be inserted.
+- `title`: Title to be inserted.
+- `author`: Author to be inserted.
 
 **Returns:** Nothing.
