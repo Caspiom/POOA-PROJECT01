@@ -1,4 +1,8 @@
-# PT:
+# Versão em Português:
+
+# **IMPORTANTE**
+
+Esta é apenas uma versão inicial do projeto e ainda não é possível criar login e senha. Para logar, use o login: “admin” e a senha: “admin”.
 
 # Sistema de Gestão de Artigos
 
@@ -127,7 +131,10 @@ Insere conteúdo na tabela de conteúdo.
 
 **Retorna:** Nada.
 
-# EN:
+# English Version:
+# **IMPORTANT**
+
+This is just an initial version of the project and it is not yet possible to create a login and password. To log in, use the login: "admin" and the password: "admin".
 
 # Article Management System
 
@@ -222,7 +229,7 @@ Creates the user table if it does not exist.
 
 **Returns:** Nothing.
 
-## insertIntoUsers(Connection conn, String table_name, String username, String password)
+## insertInto(Connection conn, String table_name, String username, String password)
 Inserts a new user into the user table.
 
 **Parameters:**
