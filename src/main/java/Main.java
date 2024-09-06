@@ -7,12 +7,13 @@ import java.sql.Connection;
 public class Main  {
     public static void main(String[] args) {
 
-        // Criação do objeto DB e sc
-        // Creation of the DB and sc object
+        // Criação do objetos
+        // Creation of the objects
         main.java.DbFunctions DB=new main.java.DbFunctions();
         Scanner sc = new Scanner(System.in);
         main.java.Content content =new main.java.Content();
         main.java.Users users=new main.java.Users();
+        main.java.MenuMethods menu=new main.java.MenuMethods();
 
         // Conectando ao banco Postgres
         // Connecting to the Postgres database
@@ -54,14 +55,14 @@ public class Main  {
                         // Login e Senha
                         // Login and Pass
                         System.out.println("Digite seu Login: ");
-                        String login = sc.next(); //next() para ler a entrada
+                        String currentLogin = sc.next(); //next() para ler a entrada
 
                         System.out.println("Digite sua Senha: ");
                         String senha = sc.next();
 
                         //Por enquanto Login e senha se mantem admin
                         //For now Login and pass are both admin
-                        if (login.equals("admin") && senha.equals("admin")) {
+                        if (currentLogin.equals("admin") && senha.equals("admin")) {
                             System.out.println("Succeso no Login.");
                             op2=0;
 
@@ -79,54 +80,16 @@ public class Main  {
 
                                 switch (op2) {
                                     case 1:
-                                        System.out.println("Digite o título a ser adicionado no banco de dados: ");
-                                        if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
-                                        String titulo = sc.nextLine();
-
-                                        System.out.println("Digite o texto a ser adicionado no banco de dados: ");
-                                        String texto = sc.nextLine();
-                                        content.insertInto(connection, table_content, texto, titulo, login);
+                                        menu.createContent(connection, table_content, currentLogin);
                                         continue;
                                     case 2:
                                         DB.read(connection, table_content);
                                         continue;
                                     case 3:
-                                            System.out.println("=======================");
-                                            System.out.println("1 - Mudar título");
-                                            System.out.println("2 - Mudar conteudo");
-                                            System.out.println("=======================");
-                                            int opTiCon = sc.nextInt();
-                                            switch (opTiCon){
-                                                case 1:
-                                                    System.out.println("Digite o título a ser modificado: ");
-                                                    if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
-                                                    String oldTitle = sc.nextLine();
-
-                                                    System.out.println("Digite o novo título: ");
-                                                    String newTitle = sc.nextLine();
-
-                                                    DB.update(connection, table_content, "titulo", oldTitle, newTitle);
-                                                    continue;
-                                                case 2:
-                                                    System.out.println("Digite o conteudo a ser modificado: ");
-                                                    if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
-                                                    String oldContent = sc.nextLine();
-
-                                                    System.out.println("Digite o novo conteudo: ");
-                                                    String newContent = sc.nextLine();
-
-                                                    DB.update(connection, table_content, "titulo", oldContent, newContent);
-                                                    continue;
-                                                default:
-                                                    System.out.println("Opção inválida. Tente novamente.");
-                                                    break;
-                                            }
+                                        menu.changeContent(connection, table_content, currentLogin);
+                                        continue;
                                     case 4:
-                                            System.out.println("Digite o título do conteudo a ser deletado: ");
-                                            if (sc.hasNextLine()) sc.nextLine(); // Limpa qualquer nova linha residual
-                                            String delContent = sc.nextLine();
-
-                                            DB.delete_row(connection, table_content, "titulo", delContent);
+                                        menu.DeleteContent(connection, table_content, currentLogin);
                                         continue;
                                     case 5:
                                         System.out.println("Saindo da sua conta. Até logo!");
@@ -141,7 +104,6 @@ public class Main  {
                         break;
                     case 2:
                         users.insertInto(connection, table_user,"admin","admin" );
-                        System.out.println("Usario admin criado!");
                         continue;
                     case 3:
                         DB.read(connection, table_content);
@@ -152,7 +114,6 @@ public class Main  {
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
                 }
-
             }
         }catch (Exception e){
             System.out.println("Opção inválida. Tente novamente.");
