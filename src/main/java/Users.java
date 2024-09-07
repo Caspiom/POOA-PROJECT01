@@ -1,6 +1,7 @@
 package main.java;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Users {
@@ -32,6 +33,24 @@ public class Users {
             System.out.println("Dados inseridos com sucesso na tabela " + table_name + "!");
             System.out.println("-----------------------------");
         }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    //Lê a tabela de usuario
+    public void read(Connection conn, String table_name){
+        Statement statement;
+        ResultSet rs = null;
+        try{
+            String query = String.format("SELECT * FROM %s",table_name);
+            statement = conn.createStatement();
+            rs=statement.executeQuery(query);
+            while(rs.next()){
+                System.out.println("Count: " + rs.getString("user_id"));
+                System.out.println("Autor: " + rs.getString("username"));
+                System.out.println("-----------------------------");
+            }
+        }catch(Exception e){
             System.out.println(e);
         }
     }

@@ -25,26 +25,6 @@ public class DbFunctions {
         return connection;
     }
 
-    //Lê a tabela de conteudo(se necessario podemos criar uma para ver a de usuario)
-    public void read(Connection conn, String table_name){
-        Statement statement;
-        ResultSet rs = null;
-        try{
-            String query = String.format("SELECT * FROM %s",table_name);
-            statement = conn.createStatement();
-            rs=statement.executeQuery(query);
-            while(rs.next()){
-                System.out.println("Count: " + rs.getString("content_id"));
-                System.out.println("Autor: " + rs.getString("autor"));
-                System.out.println("Título: " + rs.getString("titulo"));
-                System.out.println("Texto: " + rs.getString("texto"));
-                System.out.println("-----------------------------");
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
     //Atualiza um conteudo da tabela baseado no nome
     public void update(Connection conn,String table_name,String Column, String old_name, String new_name){
         Statement statement;

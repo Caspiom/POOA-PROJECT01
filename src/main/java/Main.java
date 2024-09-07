@@ -39,9 +39,8 @@ public class Main  {
                 // First menu
                 System.out.println("=======================");
                 System.out.println("1 - Login.");
-                System.out.println("2 - Cadastrar usuario.");
-                System.out.println("3 - Listar os conteúdos.");
-                System.out.println("4 - Sair do sistema.");
+                System.out.println("2 - Listar os conteúdos.");
+                System.out.println("3 - Sair do sistema.");
                 System.out.println("=======================");
                 try {
                     op = sc.nextInt();
@@ -68,13 +67,18 @@ public class Main  {
 
                             //Segundo menu
                             //Second menu
-                            while (op2 != 5) {
+                            while (op2 != 10) {
                                 System.out.println("=======================");
                                 System.out.println("1 - Cria novo conteúdo.");
                                 System.out.println("2 - Listar os conteúdos.");
                                 System.out.println("3 - Editar conteúdo.");
                                 System.out.println("4 - Deletar conteúdo.");
-                                System.out.println("5 - Sair da conta.");
+                                System.out.println("5 - Criar novo usuário.");
+                                System.out.println("6 - Listar os usuários.");
+                                System.out.println("7 - Alterar usuário.");
+                                System.out.println("8 - Excluir usuário.");
+                                System.out.println("9 - Alterar Senha.");
+                                System.out.println("10 - Sair da conta.");
                                 System.out.println("=======================");
                                 op2 = sc.nextInt();
 
@@ -83,15 +87,29 @@ public class Main  {
                                         menu.createContent(connection, table_content, currentLogin);
                                         continue;
                                     case 2:
-                                        DB.read(connection, table_content);
+                                        content.read(connection, table_content);
                                         continue;
                                     case 3:
                                         menu.changeContent(connection, table_content, currentLogin);
                                         continue;
                                     case 4:
-                                        menu.DeleteContent(connection, table_content, currentLogin);
+                                        menu.deleteContent(connection, table_content, currentLogin);
                                         continue;
                                     case 5:
+                                        menu.createUser(connection, table_user, currentLogin);
+                                        continue;
+                                    case 6:
+                                        users.read(connection, table_user);
+                                        continue;
+                                    case 7:
+                                        menu.updateUser(connection, table_user, currentLogin);
+                                        continue;
+                                    case 8:
+                                        menu.deleteUser(connection, table_user, currentLogin);
+                                        continue;
+                                    case 9:
+                                        menu.updatePass(connection, table_user, currentLogin);
+                                    case 10:
                                         System.out.println("Saindo da sua conta. Até logo!");
                                         break;
                                     default:
@@ -103,12 +121,9 @@ public class Main  {
                         }
                         break;
                     case 2:
-                        users.insertInto(connection, table_user,"admin","admin" );
+                        content.read(connection, table_content);
                         continue;
                     case 3:
-                        DB.read(connection, table_content);
-                        continue;
-                    case 4:
                         System.out.println("Saindo do sistema. Até logo!");
                         break;
                     default:
