@@ -1,264 +1,216 @@
+
+---
+
 # Versão em Português:
 
-# **IMPORTANTE**
+## Sistema de Gestão de Artigos
+Este é um pequeno programa em Java que implementa um sistema de gestão de artigos. Ele permite que você adicione, liste, edite e exclua conteúdos (artigos) usando um banco de dados `HSQL`.
 
-Esta é apenas uma versão inicial do projeto e ainda não é possível criar login e senha. Para logar, use o login: “admin” e a senha: “admin”.
-
-# Sistema de Gestão de Artigos
-
-Este é um pequeno programa em Java que implementa um sistema de gestão de artigos. Ele permite que você adicione, liste, edite e exclua conteúdos (artigos) usando uma estrutura de dados chamada `LinkedList`.
-
-## Funcionalidades:
-
-### Login:
+### Funcionalidades:
+#### Login:
 - O programa solicita um login e senha.
 - Se o login e a senha forem iguais, o usuário é autenticado com sucesso.
 
-### Opções do Menu:
-
+#### Opções do Menu:
 1. **Criar novo conteúdo**: Adiciona um novo artigo à lista.
 2. **Listar os conteúdos**: Exibe todos os artigos atualmente armazenados.
 3. **Editar conteúdo**: Permite modificar o conteúdo de um artigo existente.
 4. **Deletar conteúdo**: Remove um artigo da lista.
-5. **Sair da conta**: Encerra a sessão do usuário.
+5. **Criar novo usuário**: Cria um usuário novo.
+6. **Listar os usuários**: Faz uma lista de todos usuários.
+7. **Alterar usuário**: Altera o login de um usuário.
+8. **Excluir usuário**: Exclui um usuário.
+9. **Alterar Senha**: Muda a senha do usuário atual.
+10. **Sair da conta**: Encerra a sessão do usuário.
 
-# Métodos da classe DbFunctions
+### Métodos da classe DbFunctions
+A classe `DbFunctions` fornece métodos para interagir com o banco de dados HSQLDB, incluindo:
 
-## connect_to_db(String dbname, String user, String pass)
-Conecta ao banco de dados PostgreSQL.
+- **connect_to_hsql**: Conecta ao banco de dados HSQLDB.
+- **update**: Atualiza um conteúdo da tabela baseado no nome.
+- **search_name**: Procura um conteúdo da tabela pelo nome.
+- **delete_row**: Deleta uma linha dentro de uma tabela.
+- **delete_table**: Deleta uma tabela inteira (use com cuidado).
 
-**Parâmetros:**
-- `dbname`: Nome do banco de dados.
-- `user`: Nome de usuário do banco de dados.
-- `pass`: Senha do banco de dados.
+### Métodos da classe ContentHSQL
+A classe `ContentHSQL` fornece métodos para gerenciar o conteúdo dos artigos, incluindo:
 
-**Retorna:** Objeto `Connection` se a conexão for bem-sucedida, `null` caso contrário.
+- **createTable**: Cria uma tabela de conteúdo.
+- **insertInto**: Insere conteúdo na tabela de conteúdo.
+- **read**: Lê a tabela de conteúdo.
+- **createContent**: Método placeholder para criar conteúdo (a ser implementado).
+- **changeContent**: Método placeholder para alterar conteúdo (a ser implementado).
+- **deleteContent**: Deleta conteúdo da tabela de conteúdo.
 
-## read(Connection conn, String table_name)
-Lê a tabela de conteúdo (se necessário, podemos criar uma para ver a de usuário).
+### Métodos da classe ContentList
+A classe `ContentList` implementa a interface `Persistencia<Content>` e fornece métodos para gerenciar uma lista de conteúdos, incluindo:
 
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser lida.
+- **save**: Salva um novo conteúdo na lista.
+- **atualizar**: Atualiza um conteúdo existente na lista.
+- **listar**: Lista todos os conteúdos armazenados.
+- **remover**: Remove um conteúdo da lista pelo ID.
 
-**Retorna:** Nada.
+### Métodos da classe ContentService
+A classe `ContentService` fornece métodos para gerenciar o serviço de conteúdo, incluindo:
 
-## update(Connection conn, String table_name, String Column, String old_name, String new_name)
-Atualiza um conteúdo da tabela baseado no nome.
+- **ConteudoService**: Construtor para inicializar a persistência.
+- **save**: Salva um novo conteúdo usando a persistência.
+- **atualizarConteudo**: Atualiza um conteúdo existente.
+- **listarConteudos**: Lista todos os conteúdos armazenados.
+- **removerConteudo**: Remove um conteúdo pelo ID.
 
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão atualizados.
-- `Column`: Nome da coluna a ser atualizada.
-- `old_name`: Nome antigo do conteúdo.
-- `new_name`: Novo nome do conteúdo.
+### Métodos da classe Content
+A classe `Content` representa um artigo e fornece métodos para gerenciar suas propriedades, incluindo:
 
-**Retorna:** Nada.
+- **getTitle**: Retorna o título do conteúdo.
+- **setTitle**: Define o título do conteúdo.
+- **getContent**: Retorna o texto do conteúdo.
+- **setContent**: Define o texto do conteúdo.
+- **getId**: Retorna o ID do conteúdo.
+- **setId**: Define o ID do conteúdo.
+- **getAutor**: Retorna o autor do conteúdo.
+- **setAutor**: Define o autor do conteúdo.
 
-## search_name(Connection conn, String table_name, String Column, String name)
-Procura um conteúdo da tabela pelo nome.
+### Métodos da classe UsersHSQL
+A classe `UsersHSQL` fornece métodos para gerenciar os usuários, incluindo:
 
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão procurados.
-- `Column`: Nome da coluna a ser procurada.
-- `name`: Nome do conteúdo a ser procurado.
+- **createTable**: Cria a tabela de usuários.
+- **insertInto**: Insere um novo usuário na tabela de usuários.
+- **read**: Lê a tabela de usuários.
+- **createUser**: Cria um novo usuário.
+- **updateUser**: Atualiza o nome de usuário.
+- **deleteUser**: Deleta um usuário da tabela de usuários.
+- **getCurrentPassword**: Recupera a senha atual do usuário.
+- **updatePass**: Atualiza a senha do usuário.
 
-**Retorna:** Nada.
+### Métodos da classe UsersService
+A classe `UsersService` fornece métodos para validar o login dos usuários, incluindo:
 
-## delete_row(Connection conn, String table_name, String Column, String name)
-Deleta uma linha dentro de uma tabela.
+- **validarLogin**: Valida o login do usuário.
+- **userExists**: Verifica se o usuário já existe na tabela de usuários.
 
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde a linha será deletada.
-- `Column`: Nome da coluna a ser deletada.
-- `name`: Nome do conteúdo a ser deletado.
+### Métodos da classe Users
+A classe `Users` representa um usuário e fornece métodos para gerenciar suas propriedades, incluindo:
 
-**Retorna:** Nada.
+- **getName**: Retorna o nome do usuário.
+- **setName**: Define o nome do usuário.
+- **getPassword**: Retorna a senha do usuário.
+- **setPassword**: Define a senha do usuário.
+- **toString**: Retorna uma representação em string do usuário, ocultando a senha.
 
-## delete_table(Connection conn, String table_name)
-Deleta uma tabela inteira (cuidado).
+### Métodos da interface Persistencia
+A interface `Persistencia<T>` define métodos para operações CRUD (Create, Read, Update, Delete), incluindo:
 
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser deletada.
+- **save**: Salva uma nova entidade.
+- **atualizar**: Atualiza uma entidade existente.
+- **listar**: Lista todas as entidades armazenadas.
+- **remover**: Remove uma entidade pelo ID.
 
-**Retorna:** Nada.
-
-# Métodos da classe Users
-
-## createTable(Connection conn, String table_name)
-Cria a tabela de usuários se ela não existir.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser criada.
-
-**Retorna:** Nada.
-
-## insertIntoUsers(Connection conn, String table_name, String username, String password)
-Insere um novo usuário na tabela de usuários.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão inseridos.
-- `username`: Nome de usuário a ser inserido.
-- `password`: Senha a ser inserida.
-
-**Retorna:** Nada.
-
-# Métodos da classe Content
-
-## createTable(Connection conn, String table_name)
-Cria uma tabela de conteúdo se ela não existir.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela a ser criada.
-
-**Retorna:** Nada.
-
-## insertInto(Connection conn, String table_name, String texto, String titulo, String autor)
-Insere conteúdo na tabela de conteúdo.
-
-**Parâmetros:**
-- `conn`: Objeto `Connection` para o banco de dados.
-- `table_name`: Nome da tabela onde os dados serão inseridos.
-- `texto`: Texto a ser inserido.
-- `titulo`: Título a ser inserido.
-- `autor`: Autor a ser inserido.
-
-**Retorna:** Nada.
+---
 
 # English Version:
-# **IMPORTANT**
 
-This is just an initial version of the project and it is not yet possible to create a login and password. To log in, use the login: "admin" and the password: "admin".
+## Article Management System
+This is a small Java program that implements an article management system. It allows you to add, list, edit, and delete content (articles) using a database `HSQL`.
 
-# Article Management System
-
-This is a small Java program that implements an article management system. It allows you to add, list, edit, and delete content (articles) using a data structure called `LinkedList`.
-
-## Features:
-
-### Login:
+### Features:
+#### Login:
 - The program prompts for a login and password.
-- If the login and password match, the user is successfully authenticated.
+- If the login and password are the same, the user is successfully authenticated.
 
-### Menu Options:
-
+#### Menu Options:
 1. **Create new content**: Adds a new article to the list.
 2. **List contents**: Displays all currently stored articles.
 3. **Edit content**: Allows modifying the content of an existing article.
 4. **Delete content**: Removes an article from the list.
-5. **Log out**: Ends the user's session.
+5. **Create new user**: Adds a new user to the system.
+6. **List users**: Displays all currently stored users.
+7. **Update user**: Allows modifying the username of an existing user.
+8. **Delete user**: Removes a user from the system.
+9. **Change password**: Allows changing the password of an existing user.
+10. **Log out**: Ends the user's session.
 
-# Methods of the DbFunctions Class
+### Methods of the `DbFunctions` Class
+The `DbFunctions` class provides methods to interact with the HSQLDB database, including:
 
-## connect_to_db(String dbname, String user, String pass)
-Connects to the PostgreSQL database.
+- **connect_to_hsql**: Connects to the HSQLDB database.
+- **update**: Updates a content in the table based on the name.
+- **search_name**: Searches for a content in the table by name.
+- **delete_row**: Deletes a row within a table.
+- **delete_table**: Deletes an entire table (use with caution).
 
-**Parameters:**
-- `dbname`: Name of the database.
-- `user`: Database username.
-- `pass`: Database password.
+### Methods of the `ContentHSQL` Class
+The `ContentHSQL` class provides methods to manage article content, including:
 
-**Returns:** `Connection` object if the connection is successful, `null` otherwise.
+- **createTable**: Creates a content table.
+- **insertInto**: Inserts content into the content table.
+- **read**: Reads the content table.
+- **createContent**: Placeholder method to create content (to be implemented).
+- **changeContent**: Placeholder method to change content (to be implemented).
+- **deleteContent**: Deletes content from the content table.
 
-## read(Connection conn, String table_name)
-Reads the content table (if necessary, we can create one to view the user table).
+### Methods of the `ContentList` Class
+The `ContentList` class implements the `Persistencia<Content>` interface and provides methods to manage a list of contents, including:
 
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be read.
+- **save**: Saves a new content to the list.
+- **atualizar**: Updates an existing content in the list.
+- **listar**: Lists all stored contents.
+- **remover**: Removes a content from the list by ID.
 
-**Returns:** Nothing.
+### Methods of the `ContentService` Class
+The `ContentService` class provides methods to manage content services, including:
 
-## update(Connection conn, String table_name, String Column, String old_name, String new_name)
-Updates content in the table based on the name.
+- **ConteudoService**: Constructor to initialize persistence.
+- **save**: Saves a new content using persistence.
+- **atualizarConteudo**: Updates an existing content.
+- **listarConteudos**: Lists all stored contents.
+- **removerConteudo**: Removes a content by ID.
 
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be updated.
-- `Column`: Name of the column to be updated.
-- `old_name`: Old name of the content.
-- `new_name`: New name of the content.
+### Methods of the `Content` Class
+The `Content` class represents an article and provides methods to manage its properties, including:
 
-**Returns:** Nothing.
+- **getTitle**: Returns the content title.
+- **setTitle**: Sets the content title.
+- **getContent**: Returns the content text.
+- **setContent**: Sets the content text.
+- **getId**: Returns the content ID.
+- **setId**: Sets the content ID.
+- **getAutor**: Returns the content author.
+- **setAutor**: Sets the content author.
 
-## search_name(Connection conn, String table_name, String Column, String name)
-Searches for content in the table by name.
+### Methods of the `UsersHSQL` Class
+The `UsersHSQL` class provides methods to manage users, including:
 
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be searched.
-- `Column`: Name of the column to be searched.
-- `name`: Name of the content to be searched.
+- **createTable**: Creates the users table.
+- **insertInto**: Inserts a new user into the users table.
+- **read**: Reads the users table.
+- **createUser**: Creates a new user.
+- **updateUser**: Updates the username.
+- **deleteUser**: Deletes a user from the users table.
+- **getCurrentPassword**: Retrieves the current password of the user.
+- **updatePass**: Updates the user's password.
 
-**Returns:** Nothing.
+### Methods of the `UsersService` Class
+The `UsersService` class provides methods to validate user login, including:
 
-## delete_row(Connection conn, String table_name, String Column, String name)
-Deletes a row within a table.
+- **validarLogin**: Validates the user's login.
+- **userExists**: Checks if the user already exists in the users table.
 
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the row will be deleted.
-- `Column`: Name of the column to be deleted.
-- `name`: Name of the content to be deleted.
+### Methods of the `Users` Class
+The `Users` class represents a user and provides methods to manage its properties, including:
 
-**Returns:** Nothing.
+- **getName**: Returns the user's name.
+- **setName**: Sets the user's name.
+- **getPassword**: Returns the user's password.
+- **setPassword**: Sets the user's password.
+- **toString**: Returns a string representation of the user, hiding the password.
 
-## delete_table(Connection conn, String table_name)
-Deletes an entire table (use with caution).
+### Methods of the `Persistencia` Interface
+The `Persistencia<T>` interface defines methods for CRUD (Create, Read, Update, Delete) operations, including:
 
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be deleted.
+- **save**: Saves a new entity.
+- **atualizar**: Updates an existing entity.
+- **listar**: Lists all stored entities.
+- **remover**: Removes an entity by ID.
 
-**Returns:** Nothing.
-
-# Methods of the Users Class
-
-## createTable(Connection conn, String table_name)
-Creates the user table if it does not exist.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be created.
-
-**Returns:** Nothing.
-
-## insertInto(Connection conn, String table_name, String username, String password)
-Inserts a new user into the user table.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be inserted.
-- `username`: Username to be inserted.
-- `password`: Password to be inserted.
-
-**Returns:** Nothing.
-
-# Methods of the Content Class
-
-## createTable(Connection conn, String table_name)
-Creates a content table if it does not exist.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table to be created.
-
-**Returns:** Nothing.
-
-## insertInto(Connection conn, String table_name, String text, String title, String author)
-Inserts content into the content table.
-
-**Parameters:**
-- `conn`: `Connection` object for the database.
-- `table_name`: Name of the table where the data will be inserted.
-- `text`: Text to be inserted.
-- `title`: Title to be inserted.
-- `author`: Author to be inserted.
-
-**Returns:** Nothing.
+---

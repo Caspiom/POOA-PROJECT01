@@ -1,23 +1,22 @@
-package main.java;
+package cms;
 
-import java.util.LinkedList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.sql.Connection;
 
-public class Main  {
-    public static void main(String[] args) {
+public class TUI extends UI{
+    public void start() {
 
         // Criação do objetos
         // Creation of the objects
-        main.java.DbFunctions DB=new main.java.DbFunctions();
+        DbFunctions DB=new DbFunctions();
         Scanner sc = new Scanner(System.in);
-        main.java.Content content =new main.java.Content();
-        main.java.Users users=new main.java.Users();
-        main.java.MenuMethods menu=new main.java.MenuMethods();
+        ContentHSQL content =new ContentHSQL();
+        UsersHSQL users =new UsersHSQL();
 
-        // Conectando ao banco Postgres
-        // Connecting to the Postgres database
-        Connection connection = DB.connect_to_db("", "postgres", "postgres" );
+        // Conectando ao banco HSQL
+        // Connecting to the HSQL database
+        Connection connection = DB.connect_to_hsql("", "SA", "" );
 
         // Criação de variáveis de controle
         // Creation of control variables
@@ -33,8 +32,9 @@ public class Main  {
         users.createTable(connection, table_user);
         content.createTable(connection, table_content);
 
+
         try {
-            while (op != 4) {
+            while (op != 4 || op == 4) {
                 // Menu inicial
                 // First menu
                 System.out.println("=======================");
@@ -44,8 +44,9 @@ public class Main  {
                 System.out.println("=======================");
                 try {
                     op = sc.nextInt();
-                } catch (Exception e) {
+                } catch (InputMismatchException e) {
                     System.out.println("Opção inválida. Digite novamente.");
+                    sc.next(); // Limpar o buffer do Scanner
                     continue;
                 }
 
@@ -54,14 +55,15 @@ public class Main  {
                         // Login e Senha
                         // Login and Pass
                         System.out.println("Digite seu Login: ");
-                        String currentLogin = sc.next(); //next() para ler a entrada
+                        String Login = sc.next(); //next() para ler a entrada
 
                         System.out.println("Digite sua Senha: ");
                         String senha = sc.next();
 
-                        //Por enquanto Login e senha se mantem admin
-                        //For now Login and pass are both admin
-                        if (currentLogin.equals("admin") && senha.equals("admin")) {
+                        Users currentLogin = new Users(Login, senha);
+                        UsersService service = new UsersService();
+
+                        if (service.validarLogin(connection, Login, senha)) {
                             System.out.println("Succeso no Login.");
                             op2=0;
 
@@ -84,31 +86,32 @@ public class Main  {
 
                                 switch (op2) {
                                     case 1:
-                                        menu.createContent(connection, table_content, currentLogin);
+                                        content.createContent(connection, table_content, currentLogin);
                                         continue;
                                     case 2:
                                         content.read(connection, table_content);
                                         continue;
                                     case 3:
-                                        menu.changeContent(connection, table_content, currentLogin);
+                                        content.changeContent(connection, table_content, currentLogin);
                                         continue;
                                     case 4:
-                                        menu.deleteContent(connection, table_content, currentLogin);
+                                        content.deleteContent(connection, table_content, currentLogin);
                                         continue;
                                     case 5:
-                                        menu.createUser(connection, table_user, currentLogin);
+                                        users.createUser(connection, table_user, currentLogin);
                                         continue;
                                     case 6:
                                         users.read(connection, table_user);
                                         continue;
                                     case 7:
-                                        menu.updateUser(connection, table_user, currentLogin);
+                                        users.updateUser(connection, table_user, currentLogin);
                                         continue;
                                     case 8:
-                                        menu.deleteUser(connection, table_user, currentLogin);
+                                        users.deleteUser(connection, table_user, currentLogin);
                                         continue;
                                     case 9:
-                                        menu.updatePass(connection, table_user, currentLogin);
+                                        users.updatePass(connection, table_user, currentLogin);
+                                        continue;
                                     case 10:
                                         System.out.println("Saindo da sua conta. Até logo!");
                                         break;
@@ -125,7 +128,7 @@ public class Main  {
                         continue;
                     case 3:
                         System.out.println("Saindo do sistema. Até logo!");
-                        break;
+                        System.exit(0);
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
                 }
