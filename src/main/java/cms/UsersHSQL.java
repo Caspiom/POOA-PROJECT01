@@ -78,6 +78,7 @@ public class UsersHSQL {
     public String updateUser(Object connection, String table_users, Users login) {
         String updateUser = null;
         System.out.println("Seu usuário atual é: " + login.getName());
+        String currentUser = login.getName();
 
         System.out.println("Digite o seu novo nome de usuário: ");
         updateUser = sc.nextLine();
@@ -85,7 +86,7 @@ public class UsersHSQL {
         String updateUser2 = sc.nextLine();
 
         if (updateUser.equals(updateUser2)) {
-            DB.update((Connection) connection, table_users, "username", login.getName(), updateUser);
+            DB.update((Connection) connection, table_users, "username", currentUser, updateUser);
             login.setName(updateUser);
             System.out.println("Seu nome de usuário foi atualizado com sucesso!");
         } else {

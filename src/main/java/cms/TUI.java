@@ -22,6 +22,7 @@ public class TUI extends UI{
         // Creation of control variables
         int op = 0;
         int op2 = 0;
+        int count = 0;
 
         // Dá nome às variáveis responsáveis por gerenciar as tabelas do banco de dados
         // Names the variables responsible for managing the database tables
@@ -32,6 +33,7 @@ public class TUI extends UI{
         users.createTable(connection, table_user);
         content.createTable(connection, table_content);
 
+        users.insertInto(connection, table_user, "admin","admin");
 
         try {
             while (op != 4 || op == 4) {
@@ -60,12 +62,13 @@ public class TUI extends UI{
                         System.out.println("Digite sua Senha: ");
                         String senha = sc.next();
 
-                        Users currentLogin = new Users(Login, senha);
+                        Users currentLogin = new Users(count, Login, senha);
                         UsersService service = new UsersService();
 
                         if (service.validarLogin(connection, Login, senha)) {
+
                             System.out.println("Succeso no Login.");
-                            op2=0;
+                            op2 = 0;
 
                             //Segundo menu
                             //Second menu
@@ -82,7 +85,16 @@ public class TUI extends UI{
                                 System.out.println("9 - Alterar Senha.");
                                 System.out.println("10 - Sair da conta.");
                                 System.out.println("=======================");
-                                op2 = sc.nextInt();
+                                try {
+                                    op2 = sc.nextInt();
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Opção inválida. Digite novamente.");
+                                    sc.next(); // Limpar o buffer do Scanner
+                                    continue;
+                                }
+
+
+
 
                                 switch (op2) {
                                     case 1:
@@ -116,8 +128,11 @@ public class TUI extends UI{
                                         System.out.println("Saindo da sua conta. Até logo!");
                                         break;
                                     default:
+                                        op2 = 1;
                                         System.out.println("Opção inválida. Tente novamente.");
+
                                 }
+
                             }
                         } else {
                             System.out.println("Login e Senha incorretos! Digite novamente.");
@@ -135,6 +150,8 @@ public class TUI extends UI{
             }
         }catch (Exception e){
             System.out.println("Opção inválida. Tente novamente.");
+
+
         }
     }
 }

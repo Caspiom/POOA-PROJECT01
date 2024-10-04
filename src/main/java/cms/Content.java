@@ -3,11 +3,14 @@ package cms;
 import org.hsqldb.rights.User;
 
 public class Content {
-
+	  private int idParaAlterar;
     private int id;
     private String title;
+    private String Newtitle;
+    private String ConteudoAlterado;
     private String content;
     public Users autor;
+  
 
     public Content(Integer id, String title, String content, Users autor) {
         this.id = id;
@@ -16,7 +19,41 @@ public class Content {
         this.autor = autor;
     }
 
-    public String getTitle() {
+    public Content(int idParaAlterar, String Newtitle, String ConteudoAlterado) {
+    	   this.idParaAlterar = idParaAlterar;
+    	   this.title = Newtitle;
+    	   this.ConteudoAlterado = ConteudoAlterado;
+	}
+   
+	public int getIdParaAlterar() {
+		return idParaAlterar;
+	}
+
+	public void setIdParaAlterar(int idParaAlterar) {
+		this.idParaAlterar = idParaAlterar;
+	}
+
+	public void setConteudoAlterado(String conteudoAlterado) {
+		ConteudoAlterado = conteudoAlterado;
+	}
+
+	public String getNewtitle() {
+		return Newtitle;
+	}
+
+	public void setNewtitle(String newtitle) {
+		Newtitle = newtitle;
+	}
+
+	public String getConteudoAlterado() {
+		return ConteudoAlterado;
+	}
+
+	public void setNewContent(String newContent) {
+		this.ConteudoAlterado = newContent;
+	}
+
+	public String getTitle() {
         return title;
     }
     public void setTitle(String title) {

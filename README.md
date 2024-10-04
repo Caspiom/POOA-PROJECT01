@@ -3,13 +3,19 @@
 
 # Versão em Português:
 
+# IMPORTANTE:
+## Para entrar na primeira vez no sistema se deve entrar com o usuario e senha "admin".
+
 ## Sistema de Gestão de Artigos
 Este é um pequeno programa em Java que implementa um sistema de gestão de artigos. Ele permite que você adicione, liste, edite e exclua conteúdos (artigos) usando um banco de dados `HSQL`.
 
 ### Funcionalidades:
+
+Todas as funcionalidades estão na classe TUI (`HSQL`) e na TuiList (`armazena em memória utilizando estrutura de dados Java`).
+
 #### Login:
 - O programa solicita um login e senha.
-- Se o login e a senha forem iguais, o usuário é autenticado com sucesso.
+- Se o login e a senha estiverem certos, o usuário é autenticado com sucesso.
 
 #### Opções do Menu:
 1. **Criar novo conteúdo**: Adiciona um novo artigo à lista.
@@ -89,6 +95,24 @@ A classe `UsersService` fornece métodos para validar o login dos usuários, inc
 - **validarLogin**: Valida o login do usuário.
 - **userExists**: Verifica se o usuário já existe na tabela de usuários.
 
+### Métodos da classe `UsersList`
+
+A classe `UsersList` implementa a interface `Persistencia<Users>` e fornece métodos para gerenciar uma lista de usuários, incluindo:
+
+- **save**: Salva um novo usuário na lista.
+- **atualizar**: Atualiza um usuário existente na lista.
+- **listar**: Lista todos os usuários armazenados.
+- **remover**: Remove um usuário da lista pelo ID.
+- **getName**: Verifica se um usuário com um determinado ID existe na lista.
+- **getUserById**: Recupera um usuário pelo seu ID.
+- **createUser**: Cria um novo usuário com um ID especificado.
+- **editUser**: Modifica os detalhes de um usuário existente.
+- **deleteUser**: Exclui um usuário pelo seu ID.
+- **print**: Imprime a lista de usuários.
+- **editPass**: Redefine a senha de um usuário após verificar a senha antiga.
+- **verificarCredenciais**: Verifica as credenciais de um usuário, checando o nome de usuário e a senha.
+
+
 ### Métodos da classe Users
 A classe `Users` representa um usuário e fornece métodos para gerenciar suas propriedades, incluindo:
 
@@ -110,13 +134,20 @@ A interface `Persistencia<T>` define métodos para operações CRUD (Create, Rea
 
 # English Version:
 
+# IMPORTANT:
+## To log in for the first time, use the username and password “admin”.
+
 ## Article Management System
 This is a small Java program that implements an article management system. It allows you to add, list, edit, and delete content (articles) using a database `HSQL`.
 
 ### Features:
+
+All functionalities are in the TUI (`HSQL`) class and in the TuiList (`stores in memory using Java data structures`).
+
+
 #### Login:
 - The program prompts for a login and password.
-- If the login and password are the same, the user is successfully authenticated.
+- If the login and password are validated, the user is successfully authenticated.
 
 #### Menu Options:
 1. **Create new content**: Adds a new article to the list.
@@ -204,6 +235,23 @@ The `Users` class represents a user and provides methods to manage its propertie
 - **getPassword**: Returns the user's password.
 - **setPassword**: Sets the user's password.
 - **toString**: Returns a string representation of the user, hiding the password.
+
+### Methods of the `UsersList` Class
+
+The `UsersList` class implements the `Persistencia<Users>` interface and provides methods to manage a list of users, including:
+
+- **save**: Saves a new user to the list.
+- **atualizar**: Updates an existing user in the list.
+- **listar**: Lists all stored users.
+- **remover**: Removes a user from the list by ID.
+- **getName**: Checks if a user with a given ID exists in the list.
+- **getUserById**: Retrieves a user by their ID.
+- **createUser**: Creates a new user with a specified ID.
+- **editUser**: Modifies the details of an existing user.
+- **deleteUser**: Deletes a user by their ID.
+- **print**: Prints the list of users.
+- **editPass**: Resets the password of a user after verifying the old password.
+- **verificarCredenciais**: Verifies the credentials of a user by checking the username and password.
 
 ### Methods of the `Persistencia` Interface
 The `Persistencia<T>` interface defines methods for CRUD (Create, Read, Update, Delete) operations, including:

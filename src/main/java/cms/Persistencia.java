@@ -11,6 +11,4 @@ public interface Persistencia<T> {
     List<T> listar();
 
     boolean remover(int id);
-
-
 }

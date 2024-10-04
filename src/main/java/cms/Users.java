@@ -6,7 +6,8 @@ public class Users {
     private String name;
     private String password;
 
-    public Users(String name, String password) {
+    public Users(int id ,String name, String password) {
+        this.id = id;
         this.name = name;
         this.password = password;
     }
@@ -23,6 +24,15 @@ public class Users {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer setId(int id) {
+        this.id = id;
+        return id;
     }
 
 
